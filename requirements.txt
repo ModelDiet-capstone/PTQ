@@ -1,0 +1,8 @@
+torch>=1.10.0
+torchvision>=0.11.0
+numpy
+scipy
+pyyaml
+easydict
+tqdm
+Pillow

@@ -1,0 +1,44 @@
+process:
+  seed: 1005
+
+model:
+  type: resnet18
+  path: null
+
+data:
+  path: C:\imagenet_val
+  batch_size: 32
+  num_workers: 4
+  pin_memory: True
+  input_size: 224
+  test_resize: 256
+
+quant:
+  calibrate: 1024
+
+  recon:
+    batch_size: 32
+    warm_up: 0.2
+    weight: 0.01
+    iters: 20000
+    b_range: [20, 2]
+    keep_gpu: True
+    round_mode: learned_hard_sigmoid
+
+  w_qconfig:
+    bit: 4
+    observer: MSEObserver
+    quantizer: AdaRoundFakeQuantize
+    symmetric: True
+    ch_axis: 0
+    quantizer_kwargs:
+      soft_round_mode: hard_sigmoid
+
+  a_qconfig:
+    bit: 4
+    observer: MinMaxObserver
+    quantizer: FixedFakeQuantize
+    symmetric: False 
+    ch_axis: -1
+    quantizer_kwargs:
+      soft_round_mode: hard_sigmoid

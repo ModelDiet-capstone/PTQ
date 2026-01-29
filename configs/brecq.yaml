@@ -1,0 +1,37 @@
+process:
+  seed: 1005
+
+model:
+  type: resnet18
+  path: null # .pycache
+
+data:
+  path: ./data/imagenet_val
+  batch_size: 64
+  num_workers: 4
+  pin_memory: True
+  input_size: 224
+  test_resize: 256
+
+quant:
+  calibrate: 1024  
+  
+  w_qconfig:
+    bit: 2 
+  
+  a_qconfig:
+    bit: 4
+
+# BRECQ Hyperparameters
+brecq:
+  batch_size: 16  # Reduced from 32 for ResNet50 (larger model)
+  iters_w: 20000  # Weight reconstruction iterations
+  iters_a: 5000   # Activation reconstruction iterations
+  iters: 20000    # Backward compatibility
+  weight: 0.1    # Official default for 4bit Quant(2-bit : 0.1)
+  p: 2.0          # L_p norm (paper uses 2.4, try 2.0 for less penalty)
+  lr: 4.0e-4      # Reduced from 4e-4 to prevent overfitting in Phase 2
+  warm_up: 0.2
+  b_range: [20, 2]
+  keep_gpu: false  # Set to false for ResNet50 to avoid OOM (larger blocks)
+  skip_phase2: False  # True: Weight Only 
