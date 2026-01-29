@@ -1,6 +1,6 @@
 ---
-name: capstone develop issue tmeplate
-about: capstone issue tmeplate about development
+name: capstone develop issue template
+about: capstone issue template about development
 title: "[Experiment] title"
 labels: 'Experiment'
 assignees: ''

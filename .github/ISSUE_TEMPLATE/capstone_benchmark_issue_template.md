@@ -1,6 +1,6 @@
 ---
-name: capstone benchmark issue tmeplate
-about: capstone issue tmeplate about benchmarking
+name: capstone benchmark issue template
+about: capstone issue template about benchmarking
 title: "[Experiment] title"
 labels: 'Experiment'
 assignees: ''
